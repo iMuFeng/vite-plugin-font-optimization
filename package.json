@@ -2,6 +2,7 @@
   "name": "vite-plugin-font-optimization",
   "version": "0.0.1",
   "author": "mufeng <mufeng.me@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iMuFeng/vite-plugin-font-optimization.git"
