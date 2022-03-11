@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-font-optimization",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "mufeng <mufeng.me@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -11,11 +11,8 @@
     "url": "https://github.com/iMuFeng/vite-plugin-font-optimization/issues"
   },
   "homepage": "https://github.com/iMuFeng/vite-plugin-font-optimization#readme",
-  "files": [
-    "lib"
-  ],
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig-build.json",
     "type-check": "tsc --pretty --noEmit",
