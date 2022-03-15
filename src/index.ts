@@ -4,6 +4,7 @@ import type { Plugin } from 'vite'
 
 export interface FontOptimizationOptions {
   providers?: string[]
+  apply?: 'build' | 'serve'
 }
 
 const GOOGLE_FONT_PROVIDER = 'https://fonts.googleapis.com/css'
@@ -14,6 +15,9 @@ export default function fontOptimizationPlugin(options?: FontOptimizationOptions
 
   return {
     name: 'font-optimization-plugin',
+
+    // see https://vitejs.dev/guide/api-plugin.html#conditional-application
+    apply: options?.apply,
 
     async transformIndexHtml(html: string) {
       const root = parse(html)
