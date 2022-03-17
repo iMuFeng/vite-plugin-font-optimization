@@ -32,6 +32,7 @@ jobs:
           npm install
           npm run build
           cp package.json ./lib
+          cp README.md ./lib
           cd ./lib
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
           npm publish --access public --ignore-scripts
