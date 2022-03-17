@@ -24,6 +24,7 @@
   },
   "rules": {
     "@typescript-eslint/no-unused-expressions": "off",
+    "react/jsx-filename-extension": "off",
     "import/no-unresolved": "error",
     "prettier/prettier": "error"
   },
