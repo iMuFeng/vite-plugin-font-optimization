@@ -5,7 +5,7 @@ import type { Plugin } from 'vite'
 
 export interface FontOptimizationOptions {
   providers?: string[]
-  apply?: 'build' | 'serve'
+  apply?: Plugin['apply']
 }
 
 const GOOGLE_FONT_PROVIDER = 'https://fonts.googleapis.com/css'
