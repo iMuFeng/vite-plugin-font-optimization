@@ -21,7 +21,9 @@
     "cov": "jest --coverage"
   },
   "peerDependencies": {
-    "vite": "^2.8.6"
+    "vite": "^2.8.6",
+    "got": "11.8.5",
+    "node-html-parser": "^5.2.0"
   },
   "dependencies": {
     "got": "11.8.5",
