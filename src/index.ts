@@ -10,6 +10,7 @@ export interface FontOptimizationOptions {
 
 const GOOGLE_FONT_PROVIDER = 'https://fonts.googleapis.com/css'
 const TYPEKIT_FONT_PROVIDER = 'https://use.typekit.net/'
+const BUNNY_FONT_PROVIDER = 'https://fonts.bunny.net/css'
 
 async function getFont(link: HTMLElement, providers: string[]): Promise<void> {
   const rel = link.getAttribute('rel')
@@ -24,7 +25,12 @@ async function getFont(link: HTMLElement, providers: string[]): Promise<void> {
 }
 
 export default function fontOptimizationPlugin(options?: FontOptimizationOptions): Plugin {
-  const providers = [GOOGLE_FONT_PROVIDER, TYPEKIT_FONT_PROVIDER, ...(options?.providers || [])]
+  const providers = [
+    GOOGLE_FONT_PROVIDER,
+    TYPEKIT_FONT_PROVIDER,
+    BUNNY_FONT_PROVIDER,
+    ...(options?.providers || [])
+  ]
 
   return {
     name: 'font-optimization-plugin',
