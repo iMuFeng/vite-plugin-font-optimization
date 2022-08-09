@@ -1,18 +1,20 @@
-import got from 'got'
-import { parse } from 'node-html-parser'
+import got, { Agents } from 'got'
+import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent'
 import type { HTMLElement } from 'node-html-parser'
+import { parse } from 'node-html-parser'
 import type { Plugin } from 'vite'
 
 export interface FontOptimizationOptions {
   providers?: string[]
   apply?: Plugin['apply']
+  proxy?: string
 }
 
 const GOOGLE_FONT_PROVIDER = 'https://fonts.googleapis.com/css'
 const TYPEKIT_FONT_PROVIDER = 'https://use.typekit.net/'
 const BUNNY_FONT_PROVIDER = 'https://fonts.bunny.net/css'
 
-async function getFont(link: HTMLElement, providers: string[]): Promise<void> {
+async function getFont(link: HTMLElement, providers: string[], proxy?: string): Promise<void> {
   const rel = link.getAttribute('rel')
   const href = link.getAttribute('href')
 
@@ -20,7 +22,23 @@ async function getFont(link: HTMLElement, providers: string[]): Promise<void> {
     return
   }
 
-  const style = await got(href!).text()
+  let agent: Agents | undefined = undefined
+
+  if (proxy?.startsWith('https://')) {
+    agent = {
+      https: new HttpsProxyAgent({
+        proxy
+      })
+    }
+  } else if (proxy?.startsWith('http://')) {
+    agent = {
+      http: new HttpProxyAgent({
+        proxy
+      })
+    }
+  }
+
+  const style = await got(href!, { agent }).text()
   link.replaceWith(`<style data-href="${href}">${style}</style>`)
 }
 
@@ -41,7 +59,7 @@ export default function fontOptimizationPlugin(options?: FontOptimizationOptions
     async transformIndexHtml(html: string) {
       const root = parse(html)
       const links = root.querySelectorAll('link')
-      const promises = links.map(link => getFont(link, providers))
+      const promises = links.map(link => getFont(link, providers, options?.proxy))
 
       // Download multiple fonts in parallel
       await Promise.all(promises)
